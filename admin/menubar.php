@@ -125,6 +125,25 @@
 									</li>
 								</ul>
 							</li>
+							<li class="site-menu-item has-sub">
+								<a href="javascript:void(0)">
+									<i class="site-menu-icon fa-edit" aria-hidden="true"></i>
+									<span class="site-menu-title">Vote</span>
+									<span class="site-menu-arrow"></span>
+								</a>
+								<ul class="site-menu-sub">
+									<li class="site-menu-item">
+										<a class="animsition-link" href="AddVote.php">
+											<span class="site-menu-title">Add New Vote</span>
+										</a>
+									</li>
+									<li class="site-menu-item">
+										<a class="animsition-link" href="ViewVote.php">
+											<span class="site-menu-title">View Vote</span>
+										</a>
+									</li>
+								</ul>
+							</li>
 							<li class="site-menu-category">Settings</li>
 
 							<li class="site-menu-item">
