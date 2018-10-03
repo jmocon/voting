@@ -1,0 +1,41 @@
+Billing
++ Add
++ View
++ View - display
++ View - delete
+- Edit
+
+User
++ Add
++ View
++ View - display
++ View - delete
++ Edit
+
+Election
++ Add
++ View
++ View - display
++ View - delete
+- Edit
+
+CandidatePosition
++ Add
++ View
++ View - display
++ View - delete
+- Edit
+
+Candidate
++ Add (no safety)
++ View
++ View - display
++ View - delete
++ Edit
+
+Transaction
++ Add
++ View
++ View - display
++ View - delete
++ Edit

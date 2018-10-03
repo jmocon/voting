@@ -1,0 +1,37 @@
+
+
+
+Vote
+  Vote_Id
+  User_Id
+  Candidate_Id
+  Election_Id
+
+-----------------------
+
+Election
+  Election_Id
+  Election_Name
+  Election_Description
+  Election_DateCreated
+
+Billing
+  Billing_Id
+  Billing_Name
+  Billing_Description
+  Billing_DateCreated
+
+CandidatePosition
+  CandidatePosition_Id
+  CandidatePosition_Name
+
+Candidate
+  Candidate_Id
+  User_Id
+  Election_Id
+  CandidatePosition_Id
+
+Transaction
+  Transaction_Id
+  Billing_Id
+  User_Id
