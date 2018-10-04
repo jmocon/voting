@@ -96,6 +96,22 @@ class Candidate{
 
 		return $this->ModelTransfer($result);
 	}
+	public function GetUser_IdById($id){
+
+		$Database = new Database();
+		$conn = $Database->GetConn();
+
+		$id = mysqli_real_escape_string($conn,$id);
+
+		$sql="SELECT `User_Id` FROM `".$this->table."`
+				WHERE `Candidate_Id` = '".$id."'";
+
+		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+		mysqli_close($conn);
+		$mdl = $this->ModelTransfer($result);
+		return $mdl->getUser_Id();
+	}
 
 	public function GetByUser_Id($id){
 
@@ -198,75 +214,6 @@ class Candidate{
 
     return $this->ModelTransfer($result);
   }
-
-	public function CheckSession($page){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$userType = "";
-
-		$id = (isset($_SESSION['uid']))?$_SESSION['uid']:'';
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql = "SELECT `User_Id` FROM `".$this->table."`
-				WHERE `Candidate_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['User_Id'];
-		}
-
-    $sql = "SELECT `Election_Id` FROM `".$this->table."`
-				WHERE `Candidate_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['Election_Id'];
-		}
-
-    $sql = "SELECT `CandidatePosition_Id` FROM `".$this->table."`
-				WHERE `Candidate_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['CandidatePosition_Id'];
-		}
-
-
-		mysqli_close($conn);
-
-		if($page == 'admin'){
-			if($userType == 1){
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-				header('Location: ../member/index.php');
-				die();
-			}else{
-				header('Location: ../login.php');
-				exit;
-			}
-		}else if($page == 'member'){
-			if($userType == 1){
-				header('Location: ../admin/index.php');
-				die();
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-			}else{
-				header('Location: ../login.php');
-				exit;
-			}
-		}else if($page == 'login'){
-			if($userType == 1){
-				header('Location: admin/index.php');
-				die();
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-				header('Location: member/index.php');
-				die();
-			}
-		}else{
-			echo 'unknown page';
-			die();
-		}
-	}
 
 	public function CountAllRow(){
 

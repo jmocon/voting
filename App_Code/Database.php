@@ -8,10 +8,10 @@ class Database{
 	public function Database(){
 		/*
 		$dbhost = 'localhost';
-		$dbuser = 'Phproperty';
-		$dbpass = 'phproperty831';
-		$dbname = 'phpropertysolution';
-		*/
+		$dbuser = 'votingdb';
+		$dbpass = 'votingdb!@#';
+		$dbname = 'votingdb';
+				*/
 		$dbhost = 'localhost';
 		$dbuser = 'root';
 		$dbpass = '';
