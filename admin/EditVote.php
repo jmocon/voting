@@ -8,15 +8,22 @@ require_once ("../App_Code/Vote.php");
 require_once ("../App_Code/VoteModel.php");
 require_once ("../App_Code/User.php");
 require_once ("../App_Code/UserModel.php");
-require_once ("../App_Code/Election.php");
-require_once ("../App_Code/ElectionModel.php");
 require_once ("../App_Code/Candidate.php");
 require_once ("../App_Code/CandidateModel.php");
+require_once ("../App_Code/Election.php");
+require_once ("../App_Code/ElectionModel.php");
 require_once ("../App_Code/CandidatePosition.php");
 require_once ("../App_Code/CandidatePositionModel.php");
 
 $msg = "";
 $err = "";
+
+if(isset($_GET['Id']) && $_GET['Id'] != ""){
+	$mdlVote = $clsVote->GetById($_GET['Id']);
+}else{
+	header('Location: ViewVote.php');
+	die();
+}
 
 if(isset($_POST['User_Id'])){
 
@@ -27,7 +34,6 @@ if(isset($_POST['User_Id'])){
 	if($err == ""){
 		$duplicate = $clsVote->IsExist($mdlVote);
 		if($duplicate['val']){
-			$err = $duplicate['msg'];
 			$msg .= '
 			<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,20 +41,18 @@ if(isset($_POST['User_Id'])){
 			<span class="sr-only">Close</span>
 			</button>
 			<h4>Duplicate of Information Detected. </h4>
-			'.$err.'
+			'.$duplicate['msg'].'
 			</div>';
 		}else{
-			$voteId = $clsVote->Add($mdlVote);
+			$clsVote->Update($mdlVote);
 			$msg .= '
 			<div class="alert alert-success alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">×</span>
 			<span class="sr-only">Close</span>
 			</button>
-			<h4>Successfully Added New Vote. </h4>
+			<h4>Successfully Updated Vote. </h4>
 			</div>';
-			// Clear all data if success
-			$mdlVote = new VoteModel();
 		}
 	}else{
 		$msg .= '
@@ -63,18 +67,17 @@ if(isset($_POST['User_Id'])){
 	}
 }
 
-
 ?>
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, vote-scalable=0, minimal-ui">
 		<meta name="description" content="<?php echo $clsContent->GetName(); ?> - Admin">
 		<meta name="author" content="">
 
-		<title>Add New Vote | <?php echo $clsContent->GetName(); ?> - Admin</title>
+		<title>Edit Vote | <?php echo $clsContent->GetName(); ?> - Admin</title>
 
 		<link rel="apple-touch-icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
 		<link rel="shortcut icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
@@ -92,6 +95,8 @@ if(isset($_POST['User_Id'])){
 		<link rel="stylesheet" href="../global/vendor/slidepanel/slidePanel.css">
 		<link rel="stylesheet" href="../global/vendor/flag-icon-css/flag-icon.css">
 		<link rel="stylesheet" href="../global/vendor/waves/waves.css">
+			<link rel="stylesheet" href="../global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
+			<link rel="stylesheet" href="../global/vendor/dropify/dropify.css">
 			<link rel="stylesheet" href="../global/vendor/select2/select2.css">
 
 
@@ -127,7 +132,7 @@ if(isset($_POST['User_Id'])){
 
 
 
-		<!-- Page -->
+    <!-- Page -->
 		<div class="page">
 			<div class="page-header">
 				<h1 class="page-title">Add New Vote</h1>
@@ -244,6 +249,8 @@ if(isset($_POST['User_Id'])){
 		<script src="../global/vendor/intro-js/intro.js"></script>
 		<script src="../global/vendor/screenfull/screenfull.js"></script>
 		<script src="../global/vendor/slidepanel/jquery-slidePanel.js"></script>
+			<script src="../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+			<script src="../global/vendor/dropify/dropify.min.js"></script>
 			<script src="../global/vendor/select2/select2.full.min.js"></script>
 
 		<!-- Scripts -->
@@ -267,6 +274,8 @@ if(isset($_POST['User_Id'])){
 		<script src="../global/js/Plugin/asscrollable.js"></script>
 		<script src="../global/js/Plugin/slidepanel.js"></script>
 		<script src="../global/js/Plugin/switchery.js"></script>
+			<script src="../global/js/Plugin/bootstrap-datepicker.js"></script>
+			<script src="../global/js/Plugin/dropify.js"></script>
 			<script src="../global/js/Plugin/select2.js"></script>
 
 
@@ -323,6 +332,7 @@ if(isset($_POST['User_Id'])){
 				$(document).ready(function(){
 					Site.run();
 				});
+
 			})(document, window, jQuery);
 		</script>
 
