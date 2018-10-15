@@ -13,9 +13,11 @@ class CandidatePosition{
 
 		$sql = "INSERT INTO `".$this->table."`
 				(
-					`CandidatePosition_Name`
+					`CandidatePosition_Name`,
+					`CandidatePosition_MaxVote`
 				) VALUES (
-					'".$mdl->getsqlName()."'
+					'".$mdl->getsqlName()."',
+					'".$mdl->getsqlMaxVote()."'
 				)";
 
 		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
@@ -33,6 +35,7 @@ class CandidatePosition{
 
 		$sql="UPDATE `".$this->table."` SET
 			`CandidatePosition_Name`='".$mdl->getsqlName()."',
+			`CandidatePosition_MaxVote`='".$mdl->getsqlMaxVote()."'
 			WHERE `CandidatePosition_Id`='".$mdl->getsqlId()."'";
 		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
 
@@ -189,6 +192,7 @@ class CandidatePosition{
 
 		$mdl->setId((isset($row['CandidatePosition_Id'])) ? $row['CandidatePosition_Id'] : '');
 		$mdl->setName((isset($row['CandidatePosition_Name'])) ? $row['CandidatePosition_Name'] : '');
+		$mdl->setMaxVote((isset($row['CandidatePosition_MaxVote'])) ? $row['CandidatePosition_MaxVote'] : '');
 		return $mdl;
 	}
 }

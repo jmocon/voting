@@ -6,11 +6,9 @@ class BillingModel{
   private $Description = "";
   private $DateCreated = "";
 
-  public function BillingModel(){}
-
   public function getId(){
-    return $this->Id;
-  }
+  return $this->Id;
+}
 
   public function getsqlId(){
     $Database = new Database();

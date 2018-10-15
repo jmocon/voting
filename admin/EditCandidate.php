@@ -30,7 +30,8 @@ if(isset($_POST['User_Id'])){
 	$err .= $clsFn->setForm('CandidatePosition_Id',$mdlCandidate,true);
 
 	if($err == ""){
-		if($clsTransaction->IsExist($mdlTransaction)){
+		$duplicate = $clsCandidate->IsExist($mdlCandidate);
+		if($duplicate['val']){
 			$msg .= '
 			<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -38,7 +39,7 @@ if(isset($_POST['User_Id'])){
 			<span class="sr-only">Close</span>
 			</button>
 			<h4>Duplicate of Information Detected. </h4>
-			<p>This is already billed to the user.</p>
+			'.$duplicate['msg'].'
 			</div>';
 		}else{
 			$clsCandidate->Update($mdlCandidate);

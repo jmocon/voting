@@ -8,7 +8,7 @@ class CandidateModel{
   private $CandidatePosition_Id = "";
 
 
-	public function CandidateModel(){}
+	public function UserModel(){}
 
 	public function getId(){
 		return $this->Id;

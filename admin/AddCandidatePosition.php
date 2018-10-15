@@ -13,6 +13,7 @@ $err = "";
 if(isset($_POST['Name'])){
 
 	$err .= $clsFn->setForm('Name',$mdlCandidatePosition,true);
+	$err .= $clsFn->setForm('MaxVote',$mdlCandidatePosition);
 
 	if($err == ""){
 		$duplicate = $clsCandidatePosition->IsExist($mdlCandidatePosition);
@@ -35,7 +36,7 @@ if(isset($_POST['Name'])){
 			<span aria-hidden="true">×</span>
 			<span class="sr-only">Close</span>
 			</button>
-			<h4>Successfully Added New CandidatePosition. </h4>
+			<h4>Successfully Added New Candidate Position. </h4>
 			</div>';
 			// Clear all data if success
 			$mdlCandidatePosition = new CandidatePositionModel();
@@ -63,7 +64,7 @@ if(isset($_POST['Name'])){
 		<meta name="description" content="<?php echo $clsContent->GetName(); ?> - Admin">
 		<meta name="author" content="">
 
-		<title>Add New CandidatePosition | <?php echo $clsContent->GetName(); ?> - Admin</title>
+		<title>Add New Candidate Position | <?php echo $clsContent->GetName(); ?> - Admin</title>
 
 		<link rel="apple-touch-icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
 		<link rel="shortcut icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
@@ -139,11 +140,22 @@ if(isset($_POST['Name'])){
 								<?php echo $msg; ?>
 								<div class="panel-body">
 									<div class="row">
-										<div class="form-group col-md-12">
-											<label class="form-control-label" for="inputName">Candidate Position</label>
+										<div class="form-group col-md-6">
+											<label class="form-control-label" for="inputName">Candidate Position Name</label>
 											<div class="row">
 												<div class="col-lg-12">
-													<input type="text" class="form-control" id="inputName" name="Name" placeholder="Candidate Position" value="<?php echo $mdlCandidatePosition->getName(); ?>" >
+													<input type="text" class="form-control" id="inputName" name="Name" placeholder="Name" value="<?php echo $mdlCandidatePosition->getName(); ?>" >
+													<small id="notif-inputName" class="invalid-feedback">This is required</small>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-6">
+											<label class="form-control-label" for="inputMaxVote">Candidate Position Maximum Vote</label>
+											<div class="row">
+												<div class="col-lg-12">
+													<input type="number" class="form-control" id="inputMaxVote" name="MaxVote" placeholder="Maximum Vote" value="<?php echo $mdlCandidatePosition->getMaxVote(); ?>" >
 													<small id="notif-inputName" class="invalid-feedback">This is required</small>
 												</div>
 											</div>

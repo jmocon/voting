@@ -20,7 +20,8 @@ if(isset($_GET['Id']) && $_GET['Id'] != ""){
 if(isset($_POST['Name'])){
 
 	$err .= $clsFn->setForm('Name',$mdlCandidatePosition,true);
-	
+	$err .= $clsFn->setForm('MaxVote',$mdlCandidatePosition,true);
+
 	if($err == ""){
 		$duplicate = $clsCandidatePosition->IsExist($mdlCandidatePosition);
 		if($duplicate['val']){
@@ -41,7 +42,7 @@ if(isset($_POST['Name'])){
 			<span aria-hidden="true">×</span>
 			<span class="sr-only">Close</span>
 			</button>
-			<h4>Successfully Updated CandidatePosition. </h4>
+			<h4>Successfully Updated Candidate Position. </h4>
 			</div>';
 		}
 	}else{
@@ -67,7 +68,7 @@ if(isset($_POST['Name'])){
 		<meta name="description" content="<?php echo $clsContent->GetName(); ?> - Admin">
 		<meta name="author" content="">
 
-		<title>Edit CandidatePosition | <?php echo $clsContent->GetName(); ?> - Admin</title>
+		<title>Edit Candidate Position | <?php echo $clsContent->GetName(); ?> - Admin</title>
 
 		<link rel="apple-touch-icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
 		<link rel="shortcut icon" href="../<?php echo $clsContent->GetFavicon(); ?>">
@@ -123,12 +124,12 @@ if(isset($_POST['Name'])){
 
 
 		<!-- Page -->
-    <div class="page">
+		<div class="page">
 			<div class="page-header">
-				<h1 class="page-title">Add New CandidatePosition</h1>
+				<h1 class="page-title">Add New Candidate Position</h1>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="ViewCandidatePosition.php">CandidatePositions</a></li>
-					<li class="breadcrumb-item active">Add New CandidatePosition</li>
+					<li class="breadcrumb-item"><a href="ViewCandidatePosition.php">Candidate Positions</a></li>
+					<li class="breadcrumb-item active">Add New Candidate Position</li>
 				</ol>
 			</div>
 			<div class="page-content">
@@ -138,16 +139,27 @@ if(isset($_POST['Name'])){
 						<div class="col-12">
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">CandidatePosition Details</h3>
+									<h3 class="panel-title">Candidate Position Details</h3>
 								</div>
 								<?php echo $msg; ?>
 								<div class="panel-body">
 									<div class="row">
-										<div class="form-group col-md-12">
-											<label class="form-control-label" for="inputName">CandidatePosition Name</label>
+										<div class="form-group col-md-6">
+											<label class="form-control-label" for="inputName">Candidate Position Name</label>
 											<div class="row">
 												<div class="col-lg-12">
 													<input type="text" class="form-control" id="inputName" name="Name" placeholder="Name" value="<?php echo $mdlCandidatePosition->getName(); ?>" >
+													<small id="notif-inputName" class="invalid-feedback">This is required</small>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-6">
+											<label class="form-control-label" for="inputMaxVote">Candidate Position Maximum Vote</label>
+											<div class="row">
+												<div class="col-lg-12">
+													<input type="number" class="form-control" id="inputMaxVote" name="MaxVote" placeholder="Maximum Vote" value="<?php echo $mdlCandidatePosition->getMaxVote(); ?>" >
 													<small id="notif-inputName" class="invalid-feedback">This is required</small>
 												</div>
 											</div>

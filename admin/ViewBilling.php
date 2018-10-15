@@ -228,7 +228,11 @@ require_once ("../App_Code/BillingModel.php");
 														</a>
 													</span>
 
-													<span data-toggle="modal" data-target="#ModalWrapper" onclick="deleteShow(<?php echo $mdlBilling->getId(); ?>);">
+													<a href="EditBilling.php?Id=<?php echo $mdlBilling->getId(); ?>" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip" data-original-title="Edit">
+														<i class="icon wb-edit" aria-hidden="true"></i>
+													</a>
+
+													<span data-toggle="modal" data-target="#ModalWrapper" onclick="deleteShowBilling(<?php echo $mdlBilling->getId(); ?>);">
 														<a href="JavaScript:void(0);" class="btn btn-sm btn-icon btn-pure btn-default" data-toggle="tooltip" data-original-title="Remove">
 															<i class="icon wb-trash" aria-hidden="true"></i>
 														</a>
