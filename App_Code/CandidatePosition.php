@@ -130,6 +130,32 @@ class CandidatePosition{
 		return $name;
 	}
 
+	public function GetByElectionId($id){
+
+		$Database = new Database();
+		$conn = $Database->GetConn();
+
+		$id = mysqli_real_escape_string($conn,$id);
+
+		$sql="
+				SELECT
+					`CP`.`CandidatePosition_Id`,
+					`CP`.`CandidatePosition_Name`,
+					`CP`.`CandidatePosition_MaxVote`
+				FROM `".$this->table."` AS `CP`
+				INNER JOIN `Candidate` AS `C`
+					ON `C`.`CandidatePosition_Id` = `CP`.`CandidatePosition_Id`
+				WHERE `C`.`Election_Id` = '".$id."'
+				GROUP BY `CP`.`CandidatePosition_Id`
+				";
+
+		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+		mysqli_close($conn);
+
+		return $this->ListTransfer($result);
+	}
+
 	public function CountAllRow(){
 
 		$Database = new Database();

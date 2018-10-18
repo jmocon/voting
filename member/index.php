@@ -3,8 +3,8 @@ require_once ("../App_Code/Database.php");
 require_once ("../App_Code/Content.php");
 require_once ("../App_Code/Image.php");
 require_once ("../App_Code/ImageModel.php");
-require_once ("../App_Code/User.php");
-require_once ("../App_Code/UserModel.php");
+require_once ("../App_Code/Election.php");
+require_once ("../App_Code/ElectionModel.php");
 ?>
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
@@ -68,22 +68,34 @@ require_once ("../App_Code/UserModel.php");
 
 
 		<!-- Page -->
+
 		<div class="page">
 			<div class="page-content">
-				<div class="row h-full">
-
-					<div class="col-sm-4">
+				<?php
+				$numOfColumns = 4;
+				$rowCount = 0;
+				$bootstrapColWidth = 12 / $numOfColumns;
+				?>
+				<div class="row">
+				<?php
+				$lstElection = $clsElection->Get();
+				foreach ($lstElection as $mdlElection)
+				{
+				?>
+					<div class="col-sm-4-<?php echo $bootstrapColWidth; ?>">
 						<div class="card card-shadow card-completed-options">
-							<a href="ViewUser.php" style="text-decoration:none;" class="grey-700">
+							<a href="VoteUser.php" style="text-decoration:none;" class="grey-700">
 								<div class="card-block p-30">
 									<div class="row">
 										<div class="col-6">
 											<div class="counter text-left grey-700">
 												<div class="counter-label mt-10">
-													Users
+													Election
 												</div>
 												<div class="counter-number font-size-40 mt-10">
-													<?php echo $clsUser->CountAllRow(); ?>
+													<tr id="trMessage<?php echo $mdlElection->getId(); ?>">
+														<?php echo $mdlElection->getName(); ?>
+													</tr>
 												</div>
 											</div>
 										</div>
@@ -97,7 +109,10 @@ require_once ("../App_Code/UserModel.php");
 							</div>
 						</a>
 					</div>
-
+					<?php
+						$rowCount++;
+						if($rowCount % $numOfColumns == 0) echo '</div><div class="row">';
+					}?>
 				</div>
 			</div>
 		</div>

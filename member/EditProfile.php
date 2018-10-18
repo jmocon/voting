@@ -62,7 +62,7 @@ if(isset($_POST['FirstName'])){
 			<h4>Successfully Updated User. </h4>
 			</div>';
 			$imgResult = $clsUser->SetImage($_FILES["fileToUpload"],$mdlUser->getId());
-			if(!$imgResult['val']){
+			if($imgResult['msg'] != ""){
 				$msg .= '
 				<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -105,7 +105,7 @@ if(isset($_POST['FirstName'])){
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="../global/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../global/css/bootstrap-extend.min.css">
-		<link rel="stylesheet" href="assets/css/site.min.css">
+		<link rel="stylesheet" href="assets/css/site.css">
 
 		<!-- Plugins -->
 		<link rel="stylesheet" href="../global/vendor/animsition/animsition.css">
@@ -147,7 +147,6 @@ if(isset($_POST['FirstName'])){
 		<![endif]-->
 
 		<?php include "nav.php"; ?>
-		<?php include "menubar.php"; ?>
 
 		<!-- Page -->
 		<div class="page">

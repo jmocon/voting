@@ -38,9 +38,9 @@ if(isset($_SESSION['uid']) && $_SESSION['uid'] != ""){
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="../global/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../global/css/bootstrap-extend.min.css">
-		<link rel="stylesheet" href="assets/css/site.min.css">
+		<link rel="stylesheet" href="assets/css/site.css">
 
-		<!-- Plugins -->
+    <!-- Plugins -->
 		<link rel="stylesheet" href="../global/vendor/animsition/animsition.css">
 		<link rel="stylesheet" href="../global/vendor/asscrollable/asScrollable.css">
 		<link rel="stylesheet" href="../global/vendor/switchery/switchery.css">
@@ -57,7 +57,6 @@ if(isset($_SESSION['uid']) && $_SESSION['uid'] != ""){
 		<!-- Fonts -->
 		<link rel="stylesheet" href="../global/fonts/material-design/material-design.min.css">
 		<link rel="stylesheet" href="../global/fonts/brand-icons/brand-icons.min.css">
-		<link rel="stylesheet" href="../global/fonts/font-awesome/font-awesome.min.css">
 		<link rel='stylesheet' href='../global/fonts/Roboto/Roboto-300-400-500-300italic.css'>
 
 		<!--[if lt IE 9]>
@@ -81,8 +80,6 @@ if(isset($_SESSION['uid']) && $_SESSION['uid'] != ""){
 		<![endif]-->
 
 		<?php include "nav.php"; ?>
-		<?php include "menubar.php"; ?>
-		<?php include "gridmenu.php"; ?>
 
 
 

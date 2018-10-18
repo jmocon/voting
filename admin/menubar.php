@@ -32,7 +32,7 @@
 							</li>
 							<li class="site-menu-item has-sub">
 								<a href="javascript:void(0)">
-									<i class="site-menu-icon fa-home" aria-hidden="true"></i>
+									<i class="site-menu-icon md-card" aria-hidden="true"></i>
 									<span class="site-menu-title">Billing</span>
 									<span class="site-menu-arrow"></span>
 								</a>
@@ -51,7 +51,7 @@
 							</li>
 							<li class="site-menu-item has-sub">
 								<a href="javascript:void(0)">
-									<i class="site-menu-icon fa-edit" aria-hidden="true"></i>
+									<i class="site-menu-icon md-receipt" aria-hidden="true"></i>
 									<span class="site-menu-title">Transaction</span>
 									<span class="site-menu-arrow"></span>
 								</a>
@@ -70,7 +70,7 @@
 							</li>
 							<li class="site-menu-item has-sub">
 								<a href="javascript:void(0)">
-									<i class="site-menu-icon fa-building-o" aria-hidden="true"></i>
+									<i class="site-menu-icon md-balance" aria-hidden="true"></i>
 									<span class="site-menu-title">Election</span>
 									<span class="site-menu-arrow"></span>
 								</a>
@@ -87,9 +87,29 @@
 									</li>
 								</ul>
 							</li>
+
+							<li class="site-menu-item has-sub">
+								<a href="javascript:void(0)">
+									<i class="site-menu-icon md-calendar-note" aria-hidden="true"></i>
+									<span class="site-menu-title">Event</span>
+									<span class="site-menu-arrow"></span>
+								</a>
+								<ul class="site-menu-sub">
+									<li class="site-menu-item">
+										<a class="animsition-link" href="AddEvent.php">
+											<span class="site-menu-title">Add New Event</span>
+										</a>
+									</li>
+									<li class="site-menu-item">
+										<a class="animsition-link" href="ViewEvent.php">
+											<span class="site-menu-title">View Event</span>
+										</a>
+									</li>
+								</ul>
+							</li>
 							<li class="site-menu-item has-sub">
 								<a href="javascript:void(00)">
-									<i class="site-menu-icon fa-commenting-o" aria-hidden="true"></i>
+									<i class="site-menu-icon md-seat" aria-hidden="true"></i>
 									<span class="site-menu-title">Candidate Position</span>
 									<span class="site-menu-arrow">
 								</a>
@@ -108,7 +128,7 @@
 							</li>
 							<li class="site-menu-item has-sub">
 								<a href="javascript:void(0)">
-									<i class="site-menu-icon fa-handshake-o" aria-hidden="true"></i>
+									<i class="site-menu-icon md-account-circle" aria-hidden="true"></i>
 									<span class="site-menu-title">Candidate</span>
 									<span class="site-menu-arrow"></span>
 								</a>

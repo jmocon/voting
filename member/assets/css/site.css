@@ -2071,9 +2071,6 @@ body.layout-full {
 }
 
 @media (min-width: 1200px) {
-  .css-menubar .page, .css-menubar .site-footer {
-    margin-left: 260px;
-  }
 
   .css-menubar.page-aside-fixed.page-aside-left .page-aside {
     left: 260px;
