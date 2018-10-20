@@ -114,23 +114,6 @@ class Vote{
 		return $this->ListTransfer($result);
 	}
 
-	public function getsqlUserById($id){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql="SELECT * FROM `".$this->table."`
-				WHERE `Vote_Id` = '".$id."'";
-
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-
-		mysqli_close($conn);
-
-		return $this->ModelTransfer($result);
-	}
-
   public function GetByElection_Id($id){
 
 		$Database = new Database();
@@ -146,23 +129,6 @@ class Vote{
 		mysqli_close($conn);
 
 		return $this->ListTransfer($result);
-	}
-
-	public function getsqlElectionById($id){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql="SELECT * FROM `".$this->table."`
-				WHERE `Vote_Id` = '".$id."'";
-
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-
-		mysqli_close($conn);
-
-		return $this->ModelTransfer($result);
 	}
 
   public function GetByCandidate_Id($id){
@@ -181,92 +147,6 @@ class Vote{
 
     return $this->ListTransfer($result);
   }
-
-  public function getsqlCandidateById($id){
-
-    $Database = new Database();
-    $conn = $Database->GetConn();
-
-    $id = mysqli_real_escape_string($conn,$id);
-
-    $sql="SELECT * FROM `".$this->table."`
-        WHERE `Vote_Id` = '".$id."'";
-
-    $result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-
-    mysqli_close($conn);
-
-    return $this->ModelTransfer($result);
-  }
-
-	public function CheckSession($page){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$userType = "";
-
-		$id = (isset($_SESSION['uid']))?$_SESSION['uid']:'';
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql = "SELECT `User_Id` FROM `".$this->table."`
-				WHERE `Vote_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['User_Id'];
-		}
-
-    $sql = "SELECT `Election_Id` FROM `".$this->table."`
-				WHERE `Vote_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['Election_Id'];
-		}
-
-    $sql = "SELECT `Candidate_Id` FROM `".$this->table."`
-				WHERE `Vote_Id` = '".$id."'";
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-		while($row = mysqli_fetch_array($result))
-		{
-			$userType = $row['Candidate_Id'];
-		}
-
-
-		mysqli_close($conn);
-
-		if($page == 'admin'){
-			if($userType == 1){
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-				header('Location: ../member/index.php');
-				die();
-			}else{
-				header('Location: ../login.php');
-				exit;
-			}
-		}else if($page == 'member'){
-			if($userType == 1){
-				header('Location: ../admin/index.php');
-				die();
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-			}else{
-				header('Location: ../login.php');
-				exit;
-			}
-		}else if($page == 'login'){
-			if($userType == 1){
-				header('Location: admin/index.php');
-				die();
-			}else if($userType == 2 || $userType == 3 || $userType == 4){
-				header('Location: member/index.php');
-				die();
-			}
-		}else{
-			echo 'unknown page';
-			die();
-		}
-	}
 
 	public function CountAllRow(){
 

@@ -11,6 +11,9 @@ class Event{
 		$Database = new Database();
 		$conn = $Database->GetConn();
 
+		$mdl->setStartDateTime(date_format(date_create($mdl->getsqlStartDateTime()),"Y-m-d h:i:s"));
+		$mdl->setEndDateTime(date_format(date_create($mdl->getsqlEndDateTime()),"Y-m-d h:i:s"));
+
 		$sql = "INSERT INTO `".$this->table."`
 				(
 					`Event_Type`,
@@ -19,8 +22,8 @@ class Event{
 					`Election_Id`
 				) VALUES (
 					'".$mdl->getsqlType()."',
-					'".date_format(date_create($mdl->getsqlStartDateTime()),"Y-m-d")."',
-					'".date_format(date_create($mdl->getsqlEndDateTime()),"Y-m-d")."',
+					'".$mdl->getsqlStartDateTime()."',
+					'".$mdl->getsqlEndDateTime()."',
 					'".$mdl->getsqlElection_Id()."'
 				)";
 
@@ -37,11 +40,15 @@ class Event{
 		$Database = new Database();
 		$conn = $Database->GetConn();
 
+		$mdl->setStartDateTime(date_format(date_create($mdl->getsqlStartDateTime()),"Y-m-d h:i:s"));
+		$mdl->setEndDateTime(date_format(date_create($mdl->getsqlEndDateTime()),"Y-m-d h:i:s"));
+
+
 		$sql="UPDATE `".$this->table."` SET
 			`Event_Type`='".$mdl->getsqlType()."',
-			`Event_StartDateTime`='".date_format(date_create($mdl->getsqlStartDateTime()),"Y-m-d")."',
-			`Event_EndDateTime`='".date_format(date_create($mdl->getsqlEndDateTime()),"Y-m-d")."',
-			`Election_Id`='".$mdl->Election_Id()."'
+			`Event_StartDateTime`='".$mdl->getsqlStartDateTime()."',
+			`Event_EndDateTime`='".$mdl->getsqlEndDateTime()."',
+			`Election_Id`='".$mdl->getsqlElection_Id()."'
 			WHERE `Event_Id`='".$mdl->getsqlId()."'";
 		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
 
@@ -162,6 +169,8 @@ class Event{
 
 		return $this->ListTransfer($result);
 	}
+
+
 
 	public function GetElectionIdById($id){
 

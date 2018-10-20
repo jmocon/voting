@@ -10,11 +10,14 @@ require_once ("../App_Code/CandidatePosition.php");
 require_once ("../App_Code/CandidatePositionModel.php");
 require_once ("../App_Code/Election.php");
 require_once ("../App_Code/ElectionModel.php");
+require_once ("../App_Code/Vote.php");
+require_once ("../App_Code/VoteModel.php");
 require_once ("../App_Code/User.php");
 require_once ("../App_Code/UserModel.php");
 require_once ("../App_Code/UserType.php");
 require_once ("../App_Code/UserTypeModel.php");
 
+$clsUser->CheckSession('member');
 $msg = "";
 $err = "";
 $electionId ="";
@@ -29,53 +32,38 @@ if(isset($_GET['Id']) && $_GET['Id'] != ""){
 }
 
 if(isset($_POST['Vote'])){
+	foreach ($lstCP as $mdlCP) {
+		foreach ($_POST['CP'.$mdlCP->getId()] as $key => $value) {
+			$mdlVote = new VoteModel();
+			$_POST['User_Id'] = $_SESSION['uid'];
+			$_POST['Election_Id'] = $electionId;
+			$_POST['Candidate_Id'] = $value;
+			$err .= $clsFn->setForm('User_Id',$mdlVote,true);
+			$err .= $clsFn->setForm('Election_Id',$mdlVote,true);
+			$err .= $clsFn->setForm('Candidate_Id',$mdlVote,true);
+			if($err == ""){
+					$clsVote->Add($mdlVote);
+					$msg = '
+					<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+					<span class="sr-only">Close</span>
+					</button>
+					<h4>Successfully Submitted Vote. </h4>
+					</div>';
 
-
-	if($err == ""){
-		$duplicate = $clsUser->IsExist($mdlUser);
-		if($duplicate['val']){
-			$msg .= '
-			<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">×</span>
-			<span class="sr-only">Close</span>
-			</button>
-			<h4>Duplicate of Information Detected. </h4>
-			'.$duplicate['msg'].'
-			</div>';
-		}else{
-			$clsUser->Update($mdlUser);
-			$msg .= '
-			<div class="alert alert-success alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">×</span>
-			<span class="sr-only">Close</span>
-			</button>
-			<h4>Successfully Updated User. </h4>
-			</div>';
-			$imgResult = $clsUser->SetImage($_FILES["fileToUpload"],$mdlUser->getId());
-			if($imgResult['msg'] != ""){
+			}else{
 				$msg .= '
 				<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">×</span>
 				<span class="sr-only">Close</span>
 				</button>
-				<h4>Image Upload Failed </h4>
-				'.$imgResult['msg'].'
+				<h4>Error Encountered. Please refresh the page or notify the host. </h4>
+				'.$err.'
 				</div>';
 			}
 		}
-	}else{
-		$msg .= '
-		<div class="alert alert-danger alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">×</span>
-		<span class="sr-only">Close</span>
-		</button>
-		<h4>Please Complete All Required Fields. </h4>
-		'.$err.'
-		</div>';
 	}
 }
 
@@ -163,7 +151,7 @@ if(isset($_POST['Vote'])){
                             <?php
                             $lstC = $clsCandidate->GetByCandidatePosition_Id($mdlCP->getId());
                             foreach ($lstC as $mdlC) { ?>
-                              <input type="checkbox" class="to-labelauty" name="CP<?php echo $mdlCP->getId(); ?>[]" data-plugin="labelauty" data-labelauty="<?php echo $clsUser->GetNameById($mdlC->getUser_Id()); ?>" value="<?php echo $mdlC->getUser_Id(); ?>" />
+                              <input type="checkbox" class="to-labelauty" name="CP<?php echo $mdlCP->getId(); ?>[]" data-plugin="labelauty" data-labelauty="<?php echo $clsUser->GetNameById($mdlC->getUser_Id()); ?>" value="<?php echo $mdlC->getId(); ?>" />
                             <?php
                             }
                             ?>
@@ -236,14 +224,16 @@ if(isset($_POST['Vote'])){
 
 
 		<script>
-  <?php  foreach ($lstCP as $mdlCP) { ?>
-      $('.cp<?php echo $mdlCP->getId(); ?> :checkbox').change(function () {
-          var $cs = $(this).closest('.cp<?php echo $mdlCP->getId(); ?>').find(':checkbox:checked');
-          if ($cs.length > <?php echo $mdlCP->getMaxVote(); ?>) {
-              this.checked = false;
-          }
-      });
-<?php } ?>
+  		<?php
+			foreach ($lstCP as $mdlCP) { ?>
+	      $('.cp<?php echo $mdlCP->getId(); ?> :checkbox').change(function () {
+	          var $cs = $(this).closest('.cp<?php echo $mdlCP->getId(); ?>').find(':checkbox:checked');
+	          if ($cs.length > <?php echo $mdlCP->getMaxVote(); ?>) {
+	              this.checked = false;
+	          }
+	      });
+			<?php
+			} ?>
 			(function(document, window, $){
 				'use strict';
 

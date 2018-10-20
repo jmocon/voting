@@ -71,20 +71,15 @@ require_once ("../App_Code/ElectionModel.php");
 
 		<div class="page">
 			<div class="page-content">
-				<?php
-				$numOfColumns = 4;
-				$rowCount = 0;
-				$bootstrapColWidth = 12 / $numOfColumns;
-				?>
 				<div class="row">
 				<?php
-				$lstElection = $clsElection->Get();
+				$lstElection = $clsElection->GetOngoing();
 				foreach ($lstElection as $mdlElection)
 				{
 				?>
-					<div class="col-sm-4-<?php echo $bootstrapColWidth; ?>">
+					<div class="col-sm-12 col-md-6">
 						<div class="card card-shadow card-completed-options">
-							<a href="VoteUser.php" style="text-decoration:none;" class="grey-700">
+							<a href="AddVote.php?Id=<?php echo $mdlElection->getId(); ?>" style="text-decoration:none;" class="grey-700">
 								<div class="card-block p-30">
 									<div class="row">
 										<div class="col-6">
@@ -110,8 +105,6 @@ require_once ("../App_Code/ElectionModel.php");
 						</a>
 					</div>
 					<?php
-						$rowCount++;
-						if($rowCount % $numOfColumns == 0) echo '</div><div class="row">';
 					}?>
 				</div>
 			</div>

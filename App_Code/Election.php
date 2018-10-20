@@ -130,6 +130,24 @@ class Election{
 		return $name;
 	}
 
+	public function GetOngoing(){
+
+		$Database = new Database();
+		$conn = $Database->GetConn();
+
+		$sql="SELECT `En`.* FROM `".$this->table."` AS `En`
+				INNER JOIN `Event` AS `Et`
+				ON `Et`.`Election_Id`= `En`.`Election_Id`
+				WHERE `Et`.`Event_StartTrigger` = '1'
+				AND `Et`.`Event_EndTrigger` = '0'";
+
+		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
+
+		mysqli_close($conn);
+
+		return $this->ListTransfer($result);
+	}
+
 	public function CountAllRow(){
 
 		$Database = new Database();

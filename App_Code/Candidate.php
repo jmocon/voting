@@ -114,23 +114,6 @@ class Candidate{
 		return $this->ListTransfer($result);
 	}
 
-	public function getsqlUserById($id){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql="SELECT * FROM `".$this->table."`
-				WHERE `Candidate_Id` = '".$id."'";
-
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-
-		mysqli_close($conn);
-
-		return $this->ModelTransfer($result);
-	}
-
   public function GetByElection_Id($id){
 
 		$Database = new Database();
@@ -146,23 +129,6 @@ class Candidate{
 		mysqli_close($conn);
 
 		return $this->ListTransfer($result);
-	}
-
-	public function getsqlElectionById($id){
-
-		$Database = new Database();
-		$conn = $Database->GetConn();
-
-		$id = mysqli_real_escape_string($conn,$id);
-
-		$sql="SELECT * FROM `".$this->table."`
-				WHERE `Candidate_Id` = '".$id."'";
-
-		$result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
-
-		mysqli_close($conn);
-
-		return $this->ModelTransfer($result);
 	}
 
   public function GetByCandidatePosition_Id($id){
@@ -201,7 +167,6 @@ class Candidate{
 
 
 	public function GetUser_IdById($id){
-
 		$Database = new Database();
 		$conn = $Database->GetConn();
 
@@ -343,8 +308,8 @@ class Candidate{
 
 		$mdl->setId((isset($row['Candidate_Id'])) ? $row['Candidate_Id'] : '');
 		$mdl->setUser_Id((isset($row['User_Id'])) ? $row['User_Id'] : '');
-		$mdl->setCandidatePosition_Id((isset($row['CandidatePosition_Id'])) ? $row['CandidatePosition_Id'] : '');
 		$mdl->setElection_Id((isset($row['Election_Id'])) ? $row['Election_Id'] : '');
+		$mdl->setCandidatePosition_Id((isset($row['CandidatePosition_Id'])) ? $row['CandidatePosition_Id'] : '');
 		return $mdl;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 require_once ("../App_Code/Database.php");
 require_once ("../App_Code/User.php");
+require_once ("../App_Code/UserModel.php");
 require_once ("../App_Code/Image.php");
 require_once ("../App_Code/ImageModel.php");
 //$clsUser = new User();

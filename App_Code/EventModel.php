@@ -11,6 +11,18 @@ class EventModel{
   private $Election_Id = "";
 	private $DateCreated = "";
 
+/*
+Start | End
+	0 		0		- voting not yet started
+	1			0		- voting on going
+	1			1		- voting ended
+	0			1		- unknown
+
+Versus
+
+	0	-	voting not ongoing
+	1 - voting ongoing
+*/
 
 	public function EventModel(){}
 

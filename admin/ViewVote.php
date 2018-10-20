@@ -168,7 +168,7 @@ require_once ("../App_Code/CandidatePositionModel.php");
 									<table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
 										<thead>
 											<tr>
-												<th>Name</th>
+												<th>Voter</th>
 												<th>Candidate</th>
 												<th>Election</th>
 												<td>Action</td>
@@ -176,7 +176,7 @@ require_once ("../App_Code/CandidatePositionModel.php");
 										</thead>
 										<tfoot>
 											<tr>
-												<th>Name</th>
+												<th>Voter</th>
 												<th>Candidate</th>
 												<th>Election</th>
 												<td>Action</td>
@@ -190,7 +190,7 @@ require_once ("../App_Code/CandidatePositionModel.php");
 											?>
 											<tr id="trMessage<?php echo $mdlVote->getId(); ?>">
 												<td><?php echo $clsUser->GetNameById($mdlVote->getUser_Id()); ?></td>
-												<td><?php echo $clsUser->getNameById($clsCandidate->getUser_IdById($mdlVote->getCandidate_Id()))," - ",$clsCandidatePosition->getNameById($clsCandidate->getCandidatePosition_IdById($mdlVote->getCandidate_Id())); ?></td>
+												<td><?php echo $clsUser->GetNameById($clsCandidate->GetUser_IdById($mdlVote->getCandidate_Id())); ?></td>
 												<td><?php echo $clsElection->GetNameById($mdlVote->getElection_Id()); ?></td>
 												<td>
 													<span data-toggle="modal" data-target="#ModalWrapper" onclick="displayVote(<?php echo $mdlVote->getId(); ?>);">
@@ -236,10 +236,10 @@ require_once ("../App_Code/CandidatePositionModel.php");
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
-						<h4 class="modal-title">Modal Title</h4>
+						<h4 class="modal-title">Title</h4>
 					</div>
 					<div class="modal-body">
-						<p>One fine body…</p>
+						<p>Message…</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

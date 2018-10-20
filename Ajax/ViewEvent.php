@@ -21,19 +21,14 @@ switch ($call)
 		stopEvent($_GET['EventId']);
 		break;
 	}
+	case 'reset':
+	{
+		resetEvent($_GET['EventId']);
+		break;
+	}
 	case 'display':
 	{
 		displayEvent($_GET['EventId']);
-		break;
-	}
-	case 'editShow':
-	{
-		editShowEvent($_GET['EventId']);
-		break;
-	}
-	case 'edit':
-	{
-		editEvent($_GET['EventId']);
 		break;
 	}
 	case 'deleteShow':
@@ -44,16 +39,6 @@ switch ($call)
 	case 'delete':
 	{
 		deleteEvent($_GET['EventId']);
-		break;
-	}
-	case 'publish':
-	{
-		publish($_GET['EventId']);
-		break;
-	}
-	case 'unpublish':
-	{
-		unpublish($_GET['EventId']);
 		break;
 	}
 }
@@ -91,6 +76,25 @@ function stopEvent($eventId)
 	</div>
 	<div class="modal-body">
 		<h4 class="card-title">Event has Ended</h4>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+	<?php
+}
+function resetEvent($eventId)
+{
+	$clsEvent = new Event();
+	$clsEvent->Neutral($eventId);
+	?>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+		<h3 class="modal-title">Event</h3>
+	</div>
+	<div class="modal-body">
+		<h4 class="card-title">Event has Reseted</h4>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

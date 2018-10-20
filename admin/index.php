@@ -72,7 +72,7 @@ require_once ("../App_Code/UserModel.php");
 			<div class="page-content">
 				<div class="row h-full">
 
-					<div class="col-sm-4">
+					<div class="col-md-6 col-lg-4">
 						<div class="card card-shadow card-completed-options">
 							<a href="ViewUser.php" style="text-decoration:none;" class="grey-700">
 								<div class="card-block p-30">

@@ -21,10 +21,14 @@ if(isset($_GET['Id']) && $_GET['Id'] != ""){
 
 if(isset($_POST['Election_Id'])){
 
+  $_POST['StartDateTime'] = $_POST['StartDate'] .' '. $_POST['StartTime'];
+  $_POST['EndDateTime'] = $_POST['EndDate'] .' '. $_POST['EndTime'];
+
 	$err .= $clsFn->setForm('Type',$mdlEvent,true);
 	$err .= $clsFn->setForm('StartDateTime',$mdlEvent,true);
 	$err .= $clsFn->setForm('EndDateTime',$mdlEvent,true);
   $err .= $clsFn->setForm('Election_Id',$mdlEvent,true);
+
 
 	if($err == ""){
 		$duplicate = $clsEvent->IsExist($mdlEvent);
@@ -61,7 +65,6 @@ if(isset($_POST['Election_Id'])){
 		</div>';
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
@@ -91,8 +94,8 @@ if(isset($_POST['Election_Id'])){
 		<link rel="stylesheet" href="../global/vendor/flag-icon-css/flag-icon.css">
 		<link rel="stylesheet" href="../global/vendor/waves/waves.css">
 			<link rel="stylesheet" href="../global/vendor/bootstrap-datepicker/bootstrap-datepicker.css">
-			<link rel="stylesheet" href="../global/vendor/dropify/dropify.css">
 			<link rel="stylesheet" href="../global/vendor/select2/select2.css">
+      <link rel="stylesheet" href="../global/vendor/timepicker/jquery-timepicker.css">
 
 
 		<!-- Fonts -->
@@ -130,10 +133,10 @@ if(isset($_POST['Election_Id'])){
     <!-- Page -->
     <div class="page">
 			<div class="page-header">
-				<h1 class="page-title">Add New Event</h1>
+				<h1 class="page-title">Edit New Event</h1>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="ViewEvent.php">Event</a></li>
-					<li class="breadcrumb-item active">Add New Event</li>
+					<li class="breadcrumb-item active">Edit New Event</li>
 				</ol>
 			</div>
 			<div class="page-content">
@@ -150,38 +153,62 @@ if(isset($_POST['Election_Id'])){
 										<div class="form-group col-md-6">
 											<label class="form-control-label" for="inputType">Event Type</label>
                       <div class="radio">
-                        <label><input type="radio" value="0" class="optradio" id="inputType0_Id" name="Type"> Manual</label>
+                        <label><input type="radio" value="0" class="optradio" id="inputType0_Id" name="Type" <?php echo ($mdlEvent->getType() == "0")?'checked':''; ?>> Manual</label>
                       </div>
                       <div class="radio">
-												<label><input type="radio" value="1" class="optradio" id="inputType1_Id" name="Type"> Automatic</label>
+												<label><input type="radio" value="1" class="optradio" id="inputType1_Id" name="Type" <?php echo ($mdlEvent->getType() == "1")?'checked':''; ?>> Automatic</label>
                       </div>
 											<small id="notif-inputName" class="invalid-feedback">This is required</small>
 										</div>
 									</div>
-                  <div class="row">
-										<div class="form-group col-md-6">
-											<label class="form-control-label" for="inputStartDateTime">Start of Event</label>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="icon fa-calendar" aria-hidden="true"></i>
-												</span>
-												<input type="text" class="form-control" data-plugin="datepicker" id="inputStartDateTime_Id" name="StartDateTime" placeholder="mm/dd/yyyy" value="<?php echo $mdlEvent->getStartDateTime(); ?>">
-												<small id="notif-inputName" class="invalid-feedback">This is required</small>
-											</div>
-										</div>
-									</div>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label class="form-control-label" for="inputEndDateTime">End of Event</label>
-                  <div class="input-group">
-                    <span class="input-group-addon">
-                      <i class="icon fa-calendar" aria-hidden="true"></i>
-                    </span>
-                    <input type="text" class="form-control" data-plugin="datepicker" id="inputEndDateTime_Id" name="EndDateTime" placeholder="mm/dd/yyyy" value="<?php echo $mdlEvent->getEndDateTime(); ?>">
-                    <small id="notif-inputName" class="invalid-feedback">This is required</small>
+
+
+                  <?php
+                    $startDate = "";
+                    $startTime = "";
+                    $endtDate = "";
+                    $endTime = "";
+
+                    if ($mdlEvent->getStartDateTime() != "") {
+                      $startDate = date_format(date_create($mdlEvent->getStartDateTime()),"m/d/Y");
+	                    $startTime = date_format(date_create($mdlEvent->getStartDateTime()),"h:ia");
+                    }
+                    if ($mdlEvent->getEndDateTime() != "") {
+                      $endDate = date_format(date_create($mdlEvent->getEndDateTime()),"m/d/Y");
+	                    $endTime = date_format(date_create($mdlEvent->getEndDateTime()),"h:ia");
+                    }
+                    ?>
+                  <div class="row" id="datepair-wrap">
+                    <div class="form-group col-md-12">
+                      <label class="form-control-label" for="inputStartDateTime">Start of Event</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="icon md-calendar" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="date start form-control" id="inputStartDate_Id" name="StartDate" placeholder="mm/dd/yyyy" value="<?php echo $startDate; ?>" />
+                        <span class="input-group-addon">
+                          <i class="icon md-time" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="time start form-control" id="inputStartTime_Id" name="StartTime" placeholder="hh:mm am/pm" value="<?php echo $startTime; ?>" />
+                      </div>
+                      <small id="notif-inputName" class="invalid-feedback">This is required</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label class="form-control-label" for="inputEndDateTime">End of Event</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="icon md-calendar" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="date end form-control" id="inputEndDate_Id" name="EndDate" placeholder="mm/dd/yyyy" value="<?php echo $endDate; ?>" />
+                        <span class="input-group-addon">
+                          <i class="icon md-time" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="time end form-control" id="inputEndTime_Id" name="EndTime" placeholder="hh:mm am/pm" value="<?php echo $endTime; ?>" />
+                      </div>
+                      <small id="notif-inputName" class="invalid-feedback">This is required</small>
+                    </div>
                   </div>
-                </div>
-              </div>
+
               <div class="row">
                 <div class="form-group col-md-6">
                     <label class="form-control-label" for="inputElection">Election</label>
@@ -236,9 +263,11 @@ if(isset($_POST['Election_Id'])){
 		<script src="../global/vendor/intro-js/intro.js"></script>
 		<script src="../global/vendor/screenfull/screenfull.js"></script>
 		<script src="../global/vendor/slidepanel/jquery-slidePanel.js"></script>
-			<script src="../assets/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-			<script src="../global/vendor/dropify/dropify.min.js"></script>
+			<script src="../global/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 			<script src="../global/vendor/select2/select2.full.min.js"></script>
+      <script src="../global/vendor/datepair/datepair.min.js"></script>
+      <script src="../global/vendor/datepair/jquery.datepair.min.js"></script>
+      <script src="../global/vendor/timepicker/jquery.timepicker.min.js"></script>
 
 		<!-- Scripts -->
 		<script src="../global/js/Component.js"></script>
@@ -262,8 +291,8 @@ if(isset($_POST['Election_Id'])){
 		<script src="../global/js/Plugin/slidepanel.js"></script>
 		<script src="../global/js/Plugin/switchery.js"></script>
 			<script src="../global/js/Plugin/bootstrap-datepicker.js"></script>
-			<script src="../global/js/Plugin/dropify.js"></script>
 			<script src="../global/js/Plugin/select2.js"></script>
+      <script src="../global/js/Plugin/jt-timepicker.js"></script>
 
 
 		<script>
@@ -323,5 +352,20 @@ if(isset($_POST['Election_Id'])){
 			})(document, window, jQuery);
 		</script>
 
+		<script>
+				// initialize input widgets first
+				$('#datepair-wrap .time').timepicker({
+						'showDuration': true,
+						'timeFormat': 'g:ia'
+				});
+
+				$('#datepair-wrap .date').datepicker({
+						'format': 'm/d/yyyy',
+						'autoclose': true
+				});
+
+				// initialize datepair
+				$('#datepair-wrap').datepair();
+		</script>
 	</body>
 </html>
