@@ -148,6 +148,33 @@ class Vote{
     return $this->ListTransfer($result);
   }
 
+  public function IsVoted($userId,$electionId){
+
+    $Database = new Database();
+    $conn = $Database->GetConn();
+		$value = false;
+
+		$userId = mysqli_real_escape_string($conn,$userId);
+		$electionId = mysqli_real_escape_string($conn,$electionId);
+
+    $sql="SELECT * FROM `".$this->table."` AS `V`
+					INNER JOIN `user` AS `U`
+					ON `U`.`User_Id` = `V`.`User_Id`
+					INNER JOIN `election` AS `E`
+					ON `E`.`Election_Id` = `V`.`Election_Id`
+        	WHERE `U`.`User_Id` = '".$userId."'
+					AND `E`.`Election_Id` = '".$electionId."'";
+
+    $result=mysqli_query($conn,$sql) or die(mysqli_error($conn));
+		$num_rows = mysqli_num_rows($result);
+		if ($num_rows >0) {
+			$value = true;
+		}
+    mysqli_close($conn);
+
+    return $value;
+  }
+
 	public function CountAllRow(){
 
 		$Database = new Database();
